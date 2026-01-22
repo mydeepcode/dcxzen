@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - DCXZEN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Spline+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF3366;
+            --secondary: #00F5FF;
+            --dark: #0A0E27;
+            --light: #F8F9FA;
+            --accent: #FFD700;
+            --gradient: linear-gradient(135deg, #FF3366 0%, #FF6B9D 50%, #FFD700 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Spline Sans', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--primary) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--secondary) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, var(--accent) 0%, transparent 50%);
+            animation: bgFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -30px) scale(1.1); }
+            66% { transform: translate(-30px, 50px) scale(0.9); }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 51, 102, 0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 3px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .page-hero {
+            padding: 10rem 5% 6rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(10, 14, 39, 0.9) 0%, var(--dark) 100%);
+        }
+
+        .page-hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .page-hero p {
+            font-size: 1.3rem;
+            color: rgba(248, 249, 250, 0.8);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .services-detailed {
+            padding: 6rem 5%;
+        }
+
+        .service-detail {
+            max-width: 1400px;
+            margin: 0 auto 8rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .service-detail:nth-child(even) {
+            direction: rtl;
+        }
+
+        .service-detail:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .service-content h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-content p {
+            font-size: 1.2rem;
+            color: rgba(248, 249, 250, 0.8);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .service-visual {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 51, 102, 0.2);
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--gradient);
+            opacity: 0.1;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .service-icon-large {
+            font-size: 10rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 51, 102, 0.2);
+            text-align: center;
+        }
+
+        .stat-box h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box p {
+            font-size: 0.9rem;
+            color: rgba(248, 249, 250, 0.7);
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--dark);
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 51, 102, 0.5);
+        }
+
+        .pricing-section {
+            padding: 6rem 5%;
+            background: rgba(10, 14, 39, 0.5);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: rgba(248, 249, 250, 0.7);
+        }
+
+        .pricing-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 51, 102, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(255, 51, 102, 0.3);
+        }
+
+        .pricing-card.featured:hover {
+            transform: translateY(-10px) scale(1.07);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            right: 30px;
+            background: var(--gradient);
+            color: var(--dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .pricing-card .price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card .period {
+            color: rgba(248, 249, 250, 0.6);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        footer {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(255, 51, 102, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: rgba(248, 249, 250, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(248, 249, 250, 0.6);
+        }
+
+        @media (max-width: 968px) {
+            .service-detail {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .service-detail:nth-child(even) {
+                direction: ltr;
+            }
+
+            .page-hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .service-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">DCXZEN</a>
+            <ul class="nav-links">
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="case-studies.html">Case Studies</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <h1>OUR SERVICES</h1>
+        <p>Comprehensive influencer marketing solutions designed to amplify your brand's reach, engagement, and conversions across all major social platforms.</p>
+    </section>
+
+    <section class="services-detailed">
+        <div class="service-detail">
+            <div class="service-content">
+                <h2>Influencer Matching</h2>
+                <p>Our AI-powered matching system analyzes millions of data points to connect your brand with the perfect influencers. We go beyond follower counts to find creators whose audience, values, and content style align seamlessly with your brand identity.</p>
+                <ul class="features-list">
+                    <li>Access to 10,000+ verified influencers across all niches</li>
+                    <li>Advanced audience demographic analysis</li>
+                    <li>Engagement rate verification and fraud detection</li>
+                    <li>Brand alignment scoring and compatibility assessment</li>
+                    <li>Multi-platform influencer discovery</li>
+                </ul>
+                <div class="service-stats">
+                    <div class="stat-box">
+                        <h4>98%</h4>
+                        <p>Match Success Rate</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>24hrs</h4>
+                        <p>Average Match Time</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>10K+</h4>
+                        <p>Influencer Network</p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-visual">
+                <div class="service-icon-large">🎯</div>
+            </div>
+        </div>
+
+        <div class="service-detail">
+            <div class="service-content">
+                <h2>Campaign Management</h2>
+                <p>From initial strategy to final reporting, we handle every aspect of your influencer campaigns. Our experienced team ensures seamless execution, timely delivery, and exceptional results that exceed your KPIs.</p>
+                <ul class="features-list">
+                    <li>End-to-end campaign strategy and planning</li>
+                    <li>Contract negotiation and legal compliance</li>
+                    <li>Content approval and quality assurance</li>
+                    <li>Timeline management and deadline tracking</li>
+                    <li>Crisis management and brand protection</li>
+                </ul>
+                <div class="service-stats">
+                    <div class="stat-box">
+                        <h4>500+</h4>
+                        <p>Campaigns Managed</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>95%</h4>
+                        <p>On-Time Delivery</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>4.9/5</h4>
+                        <p>Client Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-visual">
+                <div class="service-icon-large">📊</div>
+            </div>
+        </div>
+
+        <div class="service-detail">
+            <div class="service-content">
+                <h2>Content Strategy</h2>
+                <p>Our creative team develops data-driven content strategies that resonate with your target audience. We craft compelling narratives that drive authentic engagement while maintaining your brand's unique voice and values.</p>
+                <ul class="features-list">
+                    <li>Custom content calendar development</li>
+                    <li>Platform-specific content optimization</li>
+                    <li>Trend analysis and viral content strategies</li>
+                    <li>Creative briefing and brand guidelines</li>
+                    <li>User-generated content campaigns</li>
+                </ul>
+                <div class="service-stats">
+                    <div class="stat-box">
+                        <h4>250%</h4>
+                        <p>Avg. Engagement Lift</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>10M+</h4>
+                        <p>Content Reach</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>85%</h4>
+                        <p>Content Approval Rate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-visual">
+                <div class="service-icon-large">💡</div>
+            </div>
+        </div>
+
+        <div class="service-detail">
+            <div class="service-content">
+                <h2>Analytics & Reporting</h2>
+                <p>Comprehensive performance tracking with real-time dashboards and detailed insights. We measure what matters and provide actionable recommendations to continuously optimize your campaigns for maximum ROI.</p>
+                <ul class="features-list">
+                    <li>Real-time campaign performance dashboards</li>
+                    <li>Detailed ROI and conversion tracking</li>
+                    <li>Audience insights and demographic analysis</li>
+                    <li>Competitive benchmarking reports</li>
+                    <li>Custom KPI tracking and goal monitoring</li>
+                </ul>
+                <div class="service-stats">
+                    <div class="stat-box">
+                        <h4>400%</h4>
+                        <p>Average ROI</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>24/7</h4>
+                        <p>Real-Time Tracking</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>50+</h4>
+                        <p>Tracked Metrics</p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-visual">
+                <div class="service-icon-large">📈</div>
+            </div>
+        </div>
+
+        <div class="service-detail">
+            <div class="service-content">
+                <h2>Relationship Management</h2>
+                <p>We nurture long-term partnerships between brands and influencers, creating sustainable collaborations that deliver consistent results. Our relationship managers ensure smooth communication and mutual success.</p>
+                <ul class="features-list">
+                    <li>Dedicated relationship managers</li>
+                    <li>Long-term partnership development</li>
+                    <li>Performance-based incentive programs</li>
+                    <li>Conflict resolution and mediation</li>
+                    <li>Influencer community building</li>
+                </ul>
+                <div class="service-stats">
+                    <div class="stat-box">
+                        <h4>85%</h4>
+                        <p>Repeat Partnerships</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>3+ yrs</h4>
+                        <p>Avg. Partnership</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>98%</h4>
+                        <p>Retention Rate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-visual">
+                <div class="service-icon-large">🤝</div>
+            </div>
+        </div>
+
+        <div class="service-detail">
+            <div class="service-content">
+                <h2>Multi-Platform Campaigns</h2>
+                <p>Execute integrated campaigns across Instagram, TikTok, YouTube, Twitter, and more. Our platform-specific strategies maximize reach while maintaining consistent brand messaging across all channels.</p>
+                <ul class="features-list">
+                    <li>Cross-platform campaign coordination</li>
+                    <li>Platform-specific content optimization</li>
+                    <li>Unified brand messaging strategies</li>
+                    <li>Multi-channel performance tracking</li>
+                    <li>Emerging platform early adoption</li>
+                </ul>
+                <div class="service-stats">
+                    <div class="stat-box">
+                        <h4>8+</h4>
+                        <p>Platforms Covered</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>50M+</h4>
+                        <p>Cross-Platform Reach</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>300%</h4>
+                        <p>Multi-Platform Lift</p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-visual">
+                <div class="service-icon-large">🎬</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <div class="section-title">
+            <h2>FLEXIBLE PRICING PLANS</h2>
+            <p>Choose the plan that fits your brand's needs and budget</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Starter</h3>
+                <div class="price">$2,500</div>
+                <div class="period">per month</div>
+                <ul class="pricing-features">
+                    <li>Up to 5 micro-influencers</li>
+                    <li>2 campaigns per month</li>
+                    <li>Basic analytics dashboard</li>
+                    <li>Email support</li>
+                    <li>Content approval process</li>
+                    <li>Monthly performance reports</li>
+                </ul>
+                <a href="contact.html" class="btn">Get Started</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="pricing-badge">MOST POPULAR</div>
+                <h3>Professional</h3>
+                <div class="price">$7,500</div>
+                <div class="period">per month</div>
+                <ul class="pricing-features">
+                    <li>Up to 15 influencers (all tiers)</li>
+                    <li>5 campaigns per month</li>
+                    <li>Advanced analytics & insights</li>
+                    <li>Priority support + account manager</li>
+                    <li>Full campaign management</li>
+                    <li>Weekly performance reports</li>
+                    <li>Content strategy consultation</li>
+                    <li>Competitive analysis</li>
+                </ul>
+                <a href="contact.html" class="btn">Get Started</a>
+            </div>
+
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="price">Custom</div>
+                <div class="period">tailored to your needs</div>
+                <ul class="pricing-features">
+                    <li>Unlimited influencers</li>
+                    <li>Unlimited campaigns</li>
+                    <li>Real-time analytics dashboard</li>
+                    <li>Dedicated success team</li>
+                    <li>White-label solutions</li>
+                    <li>Custom reporting & API access</li>
+                    <li>Strategic planning sessions</li>
+                    <li>Priority influencer access</li>
+                    <li>24/7 support</li>
+                </ul>
+                <a href="contact.html" class="btn">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">DCXZEN</div>
+                <p style="color: rgba(248, 249, 250, 0.7); margin-bottom: 1rem;">Connecting brands with influencers to create authentic, impactful campaigns that drive real results.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📷</a>
+                    <a href="#">🐦</a>
+                    <a href="#">💼</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html">Influencer Matching</a></li>
+                    <li><a href="services.html">Campaign Management</a></li>
+                    <li><a href="services.html">Content Strategy</a></li>
+                    <li><a href="services.html">Analytics</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="case-studies.html">Case Studies</a></li>
+                    <li><a href="#">Influencer Network</a></li>
+                    <li><a href="#">Brand Guidelines</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 DCXZEN. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+</body>
+</html>
